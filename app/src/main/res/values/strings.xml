@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ABCLogic</string>
+    <string name="btn_newgame">NEW</string>
+    <string name="btn_selectA">A</string>
+    <string name="btn_selectB">B</string>
+    <string name="btn_selectC">C</string>
+    <string name="btn_selectD">*</string>
+    <string name="btn_play">PLAY</string>
+</resources>

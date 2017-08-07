@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.abclogic.GameActivity">
+
+    <!--android:layout_above="@+id/bNewGame"-->
+
+    <com.example.abclogic.GameView
+        android:id="@+id/gameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:onClick="newPuzzleOnClick" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:text="score = " />
+
+    <Button
+        android:id="@+id/bSelectA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bNewGame"
+        android:onClick="selectedAOnClick"
+        android:text="@string/btn_selectA" />
+
+    <Button
+        android:id="@+id/bSelectB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bNewGame"
+        android:layout_toRightOf="@+id/bSelectA"
+        android:onClick="selectedBOnClick"
+        android:text="@string/btn_selectB" />
+
+    <Button
+        android:id="@+id/bSelectC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bNewGame"
+        android:layout_toRightOf="@+id/bSelectB"
+        android:onClick="selectedCOnClick"
+        android:text="@string/btn_selectC" />
+
+    <Button
+        android:id="@+id/bSelectD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bNewGame"
+        android:layout_toRightOf="@+id/bSelectC"
+        android:onClick="selectedDOnClick"
+        android:text="@string/btn_selectD" />
+
+    <Button
+        android:id="@+id/bNewGame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="newPuzzleOnClick"
+        android:text="@string/btn_newgame" />
+
+</RelativeLayout>
+
