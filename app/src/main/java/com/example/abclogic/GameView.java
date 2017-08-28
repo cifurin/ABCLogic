@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Chris on 29/05/2016.

@@ -1,18 +1,13 @@
 package com.example.abclogic;
 
-import android.content.Context;
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import java.util.concurrent.ExecutionException;
 
 public class GameActivity extends ActionBarActivity {
 
@@ -28,7 +23,48 @@ public class GameActivity extends ActionBarActivity {
         gameView = (GameView) findViewById(R.id.gameView);
         puzzleSolver = new PuzzleSolver(gameView);
 
+
+        //JSONParser parser = new JSONParser();
+        //parser.getJSONFromUrl();
+        //Log.d(TAG,"jarray " + parser.getJSONFromUrl());
+
+        //Some url endpoint that you may have
+        String myUrl = "http://192.168.0.9:5000/get-puzzles";
+        //String to place our result in
+        String result;
+        //Instantiate new instance of our class
+        HttpGetRequest getRequest = new HttpGetRequest();
+        //Perform the doInBackground method, passing in our url
+        try {
+            result = getRequest.execute(myUrl).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        onViewCreated(gameView, savedInstanceState);
+
+
         someMethod();
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+            Log.d(TAG,"starting network call ..");
+
+            JSONParser parser = new JSONParser();
+            Log.d(TAG, "json response is " + parser.getJSONFromUrl().toString());
+
+
+        }
     }
 
     public void someMethod() {
@@ -51,7 +87,7 @@ public class GameActivity extends ActionBarActivity {
     public void selectedAOnClick(View v) {
         //
         Log.d(TAG, "selection " + "A");
-        PuzzleSolver.setChoice("A");
+        //PuzzleSolver.setChoice("A");
     }
 
     public void selectedBOnClick(View v) {
