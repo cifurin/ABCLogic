@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-
 public class JSONParser {
 
     static InputStream iStream = null;
@@ -58,10 +57,8 @@ public class JSONParser {
             e.printStackTrace();
         } // Parse String to JSON object
         try {
-            jarray = new JSONArray( builder.toString());
-            JSONArray data = new JSONArray(jarray.getJSONObject(0).getString("data"));
-            Log.d("T", jarray.getJSONObject(0).getString("data"));
-            Log.d("T", data.getJSONObject(3).getString("Clue"));
+            jarray = new JSONArray(builder.toString());
+
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }

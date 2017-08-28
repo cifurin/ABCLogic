@@ -43,8 +43,8 @@ public class GameActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        onViewCreated(gameView, savedInstanceState);
-
+        //onViewCreated(gameView, savedInstanceState);
+        //Log.d(TAG, PuzzleData.Clues[0][0]);
 
         someMethod();
     }
@@ -80,7 +80,9 @@ public class GameActivity extends ActionBarActivity {
 
     public void newPuzzleOnClick(View v) {
         //
-        puzzleSolver.newGame();
+    int g=0; int c=0;
+        //puzzleSolver.newGame();
+        puzzleSolver.newGameNetwork();
         gameView.invalidate();
     }
 

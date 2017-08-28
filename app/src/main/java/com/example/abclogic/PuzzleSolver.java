@@ -1,6 +1,10 @@
 package com.example.abclogic;
 
+import android.os.StrictMode;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Created by Chris on 31/05/2016.
@@ -22,14 +26,58 @@ public class PuzzleSolver {
     }
 
     // this is to set the observer
-    public void setObserver(Observer observer){
+    public void setObserver(Observer observer) {
         mObserver = observer;
     }
 
     // here be the magic
-    private  static void callGameActivity(){
-        if( mObserver != null ){
+    private static void callGameActivity() {
+        if (mObserver != null) {
             mObserver.callback();
+        }
+    }
+
+    public void newGameNetwork() {
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+            Log.d(TAG, "New Game Called but getting data from Network Server ");
+
+            JSONParser parser = new JSONParser();
+            Log.d(TAG, "json response is " + parser.getJSONFromUrl().toString());
+
+            try {
+                JSONArray data = new JSONArray(parser.getJSONFromUrl().getJSONObject(0).getString("data"));
+
+                String clue = data.getJSONObject(3).getString("Clue");
+                String solution = data.getJSONObject(3).getString("Solution");
+
+                Log.d(TAG, clue);
+                Log.d(TAG, solution);
+
+                for (int n = 1; n < 6; n++) {
+                    rowClues[1][n] = clue.substring(n - 1, n);
+                    rowClues[2][n] = clue.substring(n - 1 + 5, n + 5);
+                    colClues[1][n] = clue.substring(n - 1 + 10, n + 10);
+                    colClues[2][n] = clue.substring(n - 1 + 15, n + 15);
+                }
+
+                for (int row = 1; row < 6; row++) {
+                    for (int col = 1; col < 6; col++) {
+                        Cells[row][col] = CellStates.EMPTY;
+                        Solution[row][col] = CellStates.getEnum(solution.substring((row - 1) * 5 + (col - 1), (row - 1) * 5 + col));
+                    }
+                }
+
+
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
         }
     }
 
@@ -62,11 +110,11 @@ public class PuzzleSolver {
         callGameActivity();
     }
 
-    public static int getScore(){
-        int score=0;
+    public static int getScore() {
+        int score = 0;
         for (int row = 1; row < 6; row++) {
-            for (int col = 1; col < 6; col++){
-                if (Cells[row][col]==Solution[row][col]) {
+            for (int col = 1; col < 6; col++) {
+                if (Cells[row][col] == Solution[row][col]) {
                     score++;
                 }
             }
