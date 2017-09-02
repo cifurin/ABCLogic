@@ -131,6 +131,7 @@ public class GameView extends View {
             }
         }
 
+        //draw current solution
         for (int row = 1; row < 6; row++) {
             for (int col = 1; col < 6; col++) {
                 Log.d(TAG, "PuzzleSolver Grid value = " + PuzzleSolver.getChoice(row, col));

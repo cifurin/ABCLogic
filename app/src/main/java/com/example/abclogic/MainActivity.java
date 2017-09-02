@@ -1,9 +1,9 @@
 package com.example.abclogic;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -15,6 +15,10 @@ Button playButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Context mContext = getApplicationContext();
+        PuzzleData.loadPuzzleData(mContext);
+
         setContentView(R.layout.activity_main);
         playButton = (Button) findViewById(R.id.bPlay);
         playButton.setOnClickListener(this);

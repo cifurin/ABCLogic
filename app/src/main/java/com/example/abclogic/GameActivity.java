@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.concurrent.ExecutionException;
-
 public class GameActivity extends ActionBarActivity {
 
     private static final String TAG = "GameActivity";
@@ -22,29 +20,6 @@ public class GameActivity extends ActionBarActivity {
 
         gameView = (GameView) findViewById(R.id.gameView);
         puzzleSolver = new PuzzleSolver(gameView);
-
-
-        //JSONParser parser = new JSONParser();
-        //parser.getJSONFromUrl();
-        //Log.d(TAG,"jarray " + parser.getJSONFromUrl());
-
-        //Some url endpoint that you may have
-        String myUrl = "http://192.168.0.9:5000/get-puzzles";
-        //String to place our result in
-        String result;
-        //Instantiate new instance of our class
-        HttpGetRequest getRequest = new HttpGetRequest();
-        //Perform the doInBackground method, passing in our url
-        try {
-            result = getRequest.execute(myUrl).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        //onViewCreated(gameView, savedInstanceState);
-        //Log.d(TAG, PuzzleData.Clues[0][0]);
 
         someMethod();
     }
@@ -80,10 +55,7 @@ public class GameActivity extends ActionBarActivity {
 
     public void newPuzzleOnClick(View v) {
         //
-    int g=0; int c=0;
-        //puzzleSolver.newGame();
-        puzzleSolver.newGameNetwork();
-        gameView.invalidate();
+        puzzleSolver.newGameVolley();
     }
 
     public void selectedAOnClick(View v) {

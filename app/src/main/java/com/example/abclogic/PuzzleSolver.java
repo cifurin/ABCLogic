@@ -5,11 +5,13 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Chris on 31/05/2016.
  */
 public class PuzzleSolver {
+
 
     private static final String TAG = "PuzzleSolver";
     private static Observer mObserver;
@@ -22,7 +24,7 @@ public class PuzzleSolver {
 
     public PuzzleSolver(GameView v) {
         this.gameView = v;
-        newGame();
+        newGameVolley();
     }
 
     // this is to set the observer
@@ -35,6 +37,36 @@ public class PuzzleSolver {
         if (mObserver != null) {
             mObserver.callback();
         }
+    }
+
+    public void newGameVolley() {
+
+        JSONObject puzzle = PuzzleData.getPuzzle();
+
+        try {
+            String clue = puzzle.getString("Clue");
+            String solution = puzzle.getString("Solution");
+
+            for (int n = 1; n < 6; n++) {
+                rowClues[1][n] = clue.substring(n - 1, n);
+                rowClues[2][n] = clue.substring(n - 1 + 5, n + 5);
+                colClues[1][n] = clue.substring(n - 1 + 10, n + 10);
+                colClues[2][n] = clue.substring(n - 1 + 15, n + 15);
+            }
+
+            for (int row = 1; row < 6; row++) {
+                for (int col = 1; col < 6; col++) {
+                    Cells[row][col] = CellStates.EMPTY;
+                    Solution[row][col] = CellStates.getEnum(solution.substring((row - 1) * 5 + (col - 1), (row - 1) * 5 + col));
+                }
+            }
+
+        }catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        gameView.invalidate();
+        callGameActivity();
     }
 
     public void newGameNetwork() {
@@ -54,8 +86,8 @@ public class PuzzleSolver {
             try {
                 JSONArray data = new JSONArray(parser.getJSONFromUrl().getJSONObject(0).getString("data"));
 
-                String clue = data.getJSONObject(3).getString("Clue");
-                String solution = data.getJSONObject(3).getString("Solution");
+                String clue = data.getJSONObject(2).getString("Clue");
+                String solution = data.getJSONObject(2).getString("Solution");
 
                 Log.d(TAG, clue);
                 Log.d(TAG, solution);
@@ -79,6 +111,9 @@ public class PuzzleSolver {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
         }
+
+        gameView.invalidate();
+        callGameActivity();
     }
 
     public void newGame() {
