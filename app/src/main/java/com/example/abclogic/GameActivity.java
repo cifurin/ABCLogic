@@ -26,19 +26,15 @@ public class GameActivity extends ActionBarActivity {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            //your codes here
 
-            Log.d(TAG,"starting network call ..");
+            Log.d(TAG, "starting network call ..");
 
             JSONParser parser = new JSONParser();
             Log.d(TAG, "json response is " + parser.getJSONFromUrl().toString());
-
-
         }
     }
 
@@ -48,7 +44,9 @@ public class GameActivity extends ActionBarActivity {
                 // here you call something inside your activity, for instance
                 Log.d(TAG, "callback called!!  " + PuzzleSolver.getScore());
                 TextView txtView = (TextView) findViewById(R.id.textView1);
-                txtView.setText("Your Score = " + Integer.toString(PuzzleSolver.getScore()));
+                if (PuzzleSolver.getScore() == 25) {
+                    txtView.setText("Congrats ..You have solved the Puzzle !!");
+                }
             }
         });
     }

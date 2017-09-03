@@ -22,7 +22,9 @@ import java.util.List;
 public class PuzzleData {
 
     private static final String TAG = "PuzzleData";
+
     public static Integer puzzleNo = 0;
+
     final public static List<JSONObject> puzzle = new ArrayList<JSONObject>();
 
     final public static String[][] Clues = {
@@ -38,20 +40,20 @@ public class PuzzleData {
 
     };
 
-
-
-    public  static void add(JSONObject data){
+    public static void add(JSONObject data) {
         //
         puzzle.add(data);
     }
 
-    public static JSONObject getPuzzle(){
+    public static JSONObject getPuzzle() {
 
+        if (puzzleNo == puzzle.size()) {
+            puzzleNo = 0;
+        }
         return puzzle.get(puzzleNo++);
-
     }
 
-    public static void loadPuzzleData(Context mContext){
+    public static void loadPuzzleData(Context mContext) {
 
         String myUrl = "http://192.168.0.9:5000/get-puzzles";
 
@@ -60,24 +62,11 @@ public class PuzzleData {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            // Loop through the array elements
-                            Log.d(TAG,response.toString());
+                            JSONArray data = new JSONArray(response.getJSONObject(0).getString("data"));
+                            Log.d(TAG, data.toString());
 
-                            JSONArray test = new JSONArray(response.getJSONObject(0).getString("data"));
-
-                            Log.d(TAG,test.toString());
-
-                            for (int i = 0; i < test.length(); i++) {
-                                // Get current json object
-                                JSONObject data = test.getJSONObject(i);
-                                String firstName = data.getString("PuzzleID");
-                                //String lastName = data.getString("Clue");
-                                //String age = data.getString("Solution");
-                                Log.d(TAG,firstName);
-                                Log.d(TAG,data.getString("Clue"));
-                                Log.d(TAG,data.getString("Solution"));
-
-                                PuzzleData.add(data);
+                            for (int i = 0; i < data.length(); i++) {
+                                PuzzleData.add(data.getJSONObject(i));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
