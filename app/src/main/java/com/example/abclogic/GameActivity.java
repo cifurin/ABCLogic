@@ -44,8 +44,16 @@ public class GameActivity extends ActionBarActivity {
                 // here you call something inside your activity, for instance
                 Log.d(TAG, "callback called!!  " + PuzzleSolver.getScore());
                 TextView txtView = (TextView) findViewById(R.id.textView1);
-                if (PuzzleSolver.getScore() == 25) {
-                    txtView.setText("Congrats ..You have solved the Puzzle !!");
+                if (PuzzleSolver.getScore() == 0) {
+                    txtView.setText("Good Luck !! ..");
+                } else if (PuzzleSolver.getScore() < 10) {
+                    txtView.setText("Keep Going ..");
+                } else if (PuzzleSolver.getScore() < 20) {
+                    txtView.setText("You are doing well !!");
+                } else if (PuzzleSolver.getScore() < 25) {
+                    txtView.setText("You are almost there !!");
+                } else if (PuzzleSolver.getScore() == 25) {
+                    txtView.setText("You are a WINNER !!");
                 }
             }
         });

@@ -25,7 +25,28 @@ public class PuzzleData {
 
     public static Integer puzzleNo = 0;
 
-    final public static List<JSONObject> puzzle = new ArrayList<JSONObject>();
+    //final public static List<JSONObject> puzzle = new ArrayList<JSONObject>();
+
+    final public static List<JSONObject> puzzle = new ArrayList<JSONObject>() {
+        {
+            try {
+
+                JSONObject temp = new JSONObject();
+                temp.put("Clue", " C  AAABA B  CAAAC  ");
+                temp.put("Solution", "BCA**C*B*AA**CB*BCA**A*BC");
+                add(temp);
+                JSONObject temp1 = new JSONObject();
+                temp1.put("Clue", "C  A  B CB C BBCABCC");
+                temp1.put("Solution", "*CAB***CABB**CAAB**CCAB**");
+                add(temp1);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+//{"PuzzleID":1,"Clue":" AB  C AC   CAC CBBA","Solution":"*B*AC*AC*BBCA**A*BC*C**BA"}
 
     final public static String[][] Clues = {
             {"", "C", "", "", "A", "A", "A", "B", "A", "", "B", "", "", "C", "A", "A", "A", "C", "", ""},
@@ -47,9 +68,11 @@ public class PuzzleData {
 
     public static JSONObject getPuzzle() {
 
+        //puzzleNo++;
         if (puzzleNo == puzzle.size()) {
             puzzleNo = 0;
         }
+        Log.d(TAG, puzzleNo.toString());
         return puzzle.get(puzzleNo++);
     }
 
