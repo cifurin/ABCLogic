@@ -11,6 +11,15 @@
 
     <!--android:layout_above="@+id/bNewGame"-->
 
+    <Chronometer
+        android:id="@+id/simpleChronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:textColor="#f00"
+        android:textStyle="bold"/>
+
     <com.example.abclogic.GameView
         android:id="@+id/gameView"
         android:layout_width="wrap_content"

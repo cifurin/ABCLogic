@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,5 +105,36 @@ public class PuzzleData {
                 });
         // Add JsonArrayRequest to the RequestQueue
         Volley.newRequestQueue(mContext).add(jsonArrayRequest);
+    }
+
+    public static void loadJSONFromAsset(Context mContext) {
+        String json = null;
+        try {
+            InputStream is = mContext.getAssets().open("puzzleData.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            Log.d(TAG, json);
+
+            try {
+                JSONArray data = new JSONArray(json);
+                Log.d(TAG, data.toString());
+
+                JSONArray puzzles = new JSONArray(data.getJSONObject(0).getString("data"));
+
+                for (int i = 0; i < puzzles.length(); i++) {
+                    PuzzleData.add(puzzles.getJSONObject(i));
+                }
+
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

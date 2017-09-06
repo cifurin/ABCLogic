@@ -2,9 +2,11 @@ package com.example.abclogic;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 public class GameActivity extends ActionBarActivity {
@@ -12,11 +14,14 @@ public class GameActivity extends ActionBarActivity {
     private static final String TAG = "GameActivity";
     public static GameView gameView;
     private PuzzleSolver puzzleSolver;
+    Chronometer simpleChronometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
 
         gameView = (GameView) findViewById(R.id.gameView);
         puzzleSolver = new PuzzleSolver(gameView);
@@ -55,6 +60,7 @@ public class GameActivity extends ActionBarActivity {
                 } else if (PuzzleSolver.getScore() == 25) {
                     txtView.setText("You are a WINNER !!");
                 }
+                Log.d(TAG,"time is :" + (SystemClock.elapsedRealtime() - simpleChronometer.getBase()));
             }
         });
     }
@@ -62,6 +68,7 @@ public class GameActivity extends ActionBarActivity {
     public void newPuzzleOnClick(View v) {
         //
         puzzleSolver.newGameVolley();
+        simpleChronometer.start();
     }
 
     public void selectedAOnClick(View v) {
