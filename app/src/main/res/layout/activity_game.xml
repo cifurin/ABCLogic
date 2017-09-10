@@ -34,6 +34,14 @@
         android:textSize="20dp"
         android:text="Good Luck !! " />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView1"
+        android:textSize="20dp"
+        android:text="Puzzle ID = " />
+
     <Button
         android:id="@+id/bSelectA"
         android:layout_width="wrap_content"

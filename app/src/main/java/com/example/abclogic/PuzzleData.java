@@ -68,6 +68,10 @@ public class PuzzleData {
         puzzle.add(data);
     }
 
+    public static int getPuzzleNo(){
+        return puzzleNo;
+    }
+
     public static JSONObject getPuzzle() {
 
         //puzzleNo++;

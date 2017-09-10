@@ -18,7 +18,7 @@ Button playButton;
 
         Context mContext = getApplicationContext();
         //PuzzleData.loadPuzzleData(mContext);
-        //PuzzleData.loadJSONFromAsset(mContext);
+        PuzzleData.loadJSONFromAsset(mContext);
 
         setContentView(R.layout.activity_main);
         playButton = (Button) findViewById(R.id.bPlay);
