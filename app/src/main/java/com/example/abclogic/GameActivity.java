@@ -3,13 +3,13 @@ package com.example.abclogic;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
     public static GameView gameView;
